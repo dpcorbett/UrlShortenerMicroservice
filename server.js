@@ -47,7 +47,18 @@ app.route('/:data')
       day: 'numeric'
     }
     
-    res.json({unix: unixDate, natural: req.params.data});
+    if(isNaN(dateVal)){
+       var naturalDate = new Date(dateVal);
+       naturalDate = naturalDate.toLocaleDateString("en-us", dateFormat)
+       var unixDate = new Date(dateVal).getTime()/1000;
+    }
+  else {
+     var unixDate = dateVal;
+       var naturalDate = new Date(dateVal*1000);
+       naturalDate = naturalDate.toLocaleDateString("en-us", dateFormat)
+  }
+    
+    res.json({unix: unixDate, natural: naturalDate});
 })
 
 // Respond not found to all the wrong routes
