@@ -38,9 +38,16 @@ app.route('/')
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
 
-app.route('/date')
+app.route('/:data')
   .get(function(req, res, next){
-    console.log('data');
+    var dateVal = req.params.data;
+    var dateFormat = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }
+    
+    res.json({unix: unixDate, natural: req.params.data});
 })
 
 // Respond not found to all the wrong routes
