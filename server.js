@@ -38,6 +38,13 @@ app.route('/')
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
 
+app.route('/:data')
+  .get(function(req, res, next){
+    res.status(err.status || 500)
+      .type('txt')
+      .send(err.message || 'SERVER ERROR');
+})
+
 // Respond not found to all the wrong routes
 app.use(function(req, res, next){
   res.status(404);
@@ -51,11 +58,6 @@ app.use(function(err, req, res, next) {
       .type('txt')
       .send(err.message || 'SERVER ERROR');
   }  
-})
-
-app.route('/:data')
-  .get(function(req, res, next){
-    res.sendFile(process.cwd() + '/views/index.html');
 })
 
 app.listen(process.env.PORT, function () {
