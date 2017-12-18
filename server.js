@@ -38,7 +38,7 @@ app.route('/')
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
 
-app.route('/date:data')
+app.route('/date')
   .get(function(req, res, next){
     console.log('data');
 })
