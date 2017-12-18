@@ -38,11 +38,9 @@ app.route('/')
 		  res.sendFile(process.cwd() + '/views/index.html');
     })
 
-app.route('/:data')
+app.route('/date:data')
   .get(function(req, res, next){
-    res.status(err.status || 500)
-      .type('txt')
-      .send(err.message || 'SERVER ERROR');
+    console.log('data');
 })
 
 // Respond not found to all the wrong routes
