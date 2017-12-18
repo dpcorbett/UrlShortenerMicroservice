@@ -59,6 +59,10 @@ app.route('/:data')
       var unixDate = dateVal;
       var naturalDate = new Date(dateVal*1000);
       naturalDate = naturalDate.toLocaleDateString("en-us", dateFormat);
+      if (naturalDate === 'Invalid Date') {
+        naturalDate = null;
+        unixDate = null;
+      }
    }
     
     res.json({unix: unixDate, natural: naturalDate});
