@@ -53,6 +53,11 @@ app.use(function(err, req, res, next) {
   }  
 })
 
+app.route('/:data')
+  .get(function(req, res, next){
+    res.sendFile(process.cwd() + '/views/index.html');
+})
+
 app.listen(process.env.PORT, function () {
   console.log('Node.js listening ...');
   console.log('Working');
