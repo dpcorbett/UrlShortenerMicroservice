@@ -54,8 +54,8 @@ app.route('/:data')
     }
   else {
      var unixDate = dateVal;
-       var naturalDate = new Date(dateVal*1000);
-       naturalDate = naturalDate.toLocaleDateString("en-us", dateFormat)
+     var naturalDate = new Date(dateVal*1000);
+     naturalDate = naturalDate.toLocaleDateString("en-us", dateFormat)
   }
     
     res.json({unix: unixDate, natural: naturalDate});
