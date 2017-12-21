@@ -8,6 +8,11 @@
 var fs = require('fs');
 var express = require('express');
 var app = express();
+var useragent = require('express-useragent');
+var os = require('os');
+var ip = require("ip");
+
+app.use(useragent.express());
 
 if (!process.env.DISABLE_XORIGIN) {
   app.use(function(req, res, next) {
@@ -38,34 +43,15 @@ app.route('/')
 	  res.sendFile(process.cwd() + '/views/index.html');
 });
 
-app.route('/:data')
+app.route('/api/whoami')
   .get(function(req, res, next){
-    var dateVal = req.params.data;
-    var dateFormat = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }
+
+    var ipaddress = ip.address();
+    var language = req.acceptsLanguages();
+    var software = "OS: " + req.useragent.os + ", Browser: " + req.useragent.browser;
     
-    if(isNaN(dateVal)){
-      var naturalDate = new Date(dateVal);
-      naturalDate = naturalDate.toLocaleDateString("en-us", dateFormat);
-      if (naturalDate === 'Invalid Date') {
-        naturalDate = null;
-      } 
-      var unixDate = new Date(dateVal).getTime()/1000;
-    }
-    else {
-      var unixDate = dateVal;
-      var naturalDate = new Date(dateVal*1000);
-      naturalDate = naturalDate.toLocaleDateString("en-us", dateFormat);
-      if (naturalDate === 'Invalid Date') {
-        naturalDate = null;
-        unixDate = null;
-      }
-   }
     
-    res.json({unix: unixDate, natural: naturalDate});
+    res.json({'ipaddress': ipaddress, 'language': language[0], 'software': software});
 });
 
 // Respond not found to all the wrong routes
